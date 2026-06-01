@@ -11,4 +11,4 @@ workflows:
       - flutter build apk --release --android-skip-build-dependency-validation
 
     artifacts:
-      - build/app/outputs/**/*.apk
+      - build/app/outputs/flutter-apk/*.apk
