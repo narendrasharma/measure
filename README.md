@@ -1,191 +1,248 @@
-# DimScan — AR Object Measurement Flutter App
 
-A professional Flutter prototype for measuring object dimensions using your phone camera. 
-Built with a dark industrial aesthetic, AR overlay simulation, and full measurement history.
+# Measure App Pro
 
----
-
-## 📱 Screenshots Overview
-
-| Splash | Home | AR Measure | Result | History |
-|--------|------|------------|--------|---------|
-| Animated logo | 3 mode cards | Camera + tap points | Result sheet | Saved list |
+A premium iPhone-style AR inspired measurement application built with Flutter.  
+This application delivers smart real-time measurement utilities including ruler, area calculation, height estimation, and spirit level functionality using camera and sensor integration.
 
 ---
 
-## 🚀 Quick Setup
+# Developed By
 
-### Prerequisites
-- Flutter SDK `>=3.10.0`
-- Dart `>=3.0.0`
-- Android Studio / Xcode
-- Physical device (recommended for AR)
+## Sandlus Info Solutions
 
-### Install & Run
+Measure App Pro is professionally designed and developed by **Sandlus Info Solutions** with a focus on:
+- Modern UI/UX
+- High performance Flutter architecture
+- Real-time camera and sensor integration
+- Production-ready scalable codebase
+- Cross-platform mobile compatibility
+
+---
+
+# Overview
+
+Measure App Pro transforms a smartphone into a powerful digital measurement tool using:
+- Camera preview
+- Motion sensors
+- Smart geometric calculations
+- Interactive overlays
+- Smooth animations
+
+The app provides an elegant Apple-inspired experience with clean transitions and responsive interactions.
+
+---
+
+# Core Features
+
+## Smart Ruler Mode
+- Drag-to-measure interaction
+- Real-time distance calculations
+- Dynamic overlay rendering
+- Smooth measurement visualization
+- Multiple unit support
+
+## Area Measurement
+- Tap multiple points to create polygons
+- Automatic perimeter calculation
+- Area estimation in real-time
+- Interactive point mapping
+
+## Level Tool
+- Digital spirit level using device sensors
+- Pitch and roll detection
+- Live balancing feedback
+- Precision alignment assistance
+
+## Height Measurement
+- Object height estimation
+- Distance-assisted calculations
+- Real-time height rendering
+
+## Camera Integration
+- Live camera preview
+- AR-style measurement interface
+- Torch support
+- Interactive camera overlay system
+
+## Measurement History
+- Save previous measurements
+- Quick recent measurement access
+- Local persistent storage
+
+## Screenshot & Sharing
+- Capture measurement results
+- Share screenshots instantly
+- Export measurement visuals
+
+## Modern UI/UX
+- Premium dark theme
+- Smooth Flutter animations
+- Responsive layouts
+- iPhone-inspired design system
+- Beautiful typography using Google Fonts
+
+---
+
+# Technology Stack
+
+## Framework
+- Flutter 3.x
+- Dart
+
+## State & Storage
+- Shared Preferences
+
+## Device Features
+- Camera
+- Sensors
+- File Storage
+- Screenshot Capture
+
+## UI Packages
+- flutter_animate
+- google_fonts
+
+## Utility Packages
+- camera
+- sensors_plus
+- share_plus
+- screenshot
+- permission_handler
+- path_provider
+- vector_math
+- pdf
+- printing
+
+---
+
+# Project Structure
+
+```text
+lib/
+├── core/
+│   ├── ar/
+│   ├── models/
+│   └── theme/
+│
+├── features/
+│   ├── home/
+│   ├── history/
+│   └── measure/
+│       ├── painters/
+│       └── widgets/
+│
+└── main.dart
+```
+
+---
+
+# Main Screens
+
+## Home Screen
+- Measurement mode selection
+- Recent measurement history
+- Animated cards and navigation
+
+## Measure Screen
+- Real-time measurement interface
+- Camera preview
+- Interactive overlays
+- Measurement rendering
+
+## History Screen
+- Stored measurement records
+- Quick review interface
+
+---
+
+# Supported Functionalities
+
+- Distance Measurement
+- Area Calculation
+- Height Estimation
+- Digital Level Tool
+- Camera Preview
+- Measurement Saving
+- Measurement Sharing
+- Screenshot Export
+- Dark Theme UI
+- Sensor-based Calculations
+
+---
+
+# Installation
+
+## Clone Project
 
 ```bash
-# 1. Navigate into project
-cd measure_app
+git clone <repository-url>
+```
 
-# 2. Install dependencies
+## Install Dependencies
+
+```bash
 flutter pub get
+```
 
-# 3. Run on device
+## Run Application
+
+```bash
 flutter run
+```
 
-# Or build APK
+---
+
+# Android Permissions
+
+The project uses:
+- Camera Permission
+- Storage/File Access
+- Sensor Access
+
+Make sure Android permissions are properly configured.
+
+---
+
+# Build APK
+
+```bash
 flutter build apk --release
 ```
 
 ---
 
-## 📂 Project Structure
+# Future Enhancements
 
-```
-lib/
-├── main.dart                          # Entry point, routes, theme
-├── models/
-│   └── measurement.dart               # Measurement data model (cm/in, save/load)
-├── utils/
-│   ├── app_theme.dart                 # Dark industrial theme, colors, fonts
-│   └── measurement_storage.dart       # SharedPreferences persistence
-├── screens/
-│   ├── splash_screen.dart             # Animated splash with scan grid
-│   ├── home_screen.dart               # Mode selection + recent measurements
-│   ├── measure_screen.dart            # Camera + AR overlay + tap-to-measure
-│   └── history_screen.dart            # Saved measurements, swipe-to-delete
-└── widgets/
-    ├── scan_overlay.dart              # AR corner brackets + surface detection UI
-    ├── crosshair_widget.dart          # Animated Point A/B indicators
-    └── measurement_result_sheet.dart  # Result bottom sheet with unit conversions
-```
+- Advanced AR calibration
+- Cloud sync
+- PDF measurement reports
+- Multi-language support
+- AI-assisted object detection
+- Measurement annotations
+- Floor plan export
 
 ---
 
-## 🔧 Adding Real AR (Production Steps)
+# Highlights
 
-The prototype uses a simulated camera background with AR-style UI. To add real measurement:
-
-### Step 1 — Real Camera Feed
-Replace `_buildCameraBackground()` in `measure_screen.dart`:
-
-```dart
-// Add to pubspec: camera: ^0.10.5+9
-import 'package:camera/camera.dart';
-
-CameraController _cameraController;
-
-// In initState:
-final cameras = await availableCameras();
-_cameraController = CameraController(cameras[0], ResolutionPreset.high);
-await _cameraController.initialize();
-
-// In build:
-CameraPreview(_cameraController)  // replaces _buildCameraBackground()
-```
-
-### Step 2 — AR Hit Testing (ARCore/ARKit)
-```dart
-// pubspec: ar_flutter_plugin_flutterflow: ^0.0.9
-import 'package:ar_flutter_plugin_flutterflow/ar_flutter_plugin.dart';
-
-ARView(
-  onARViewCreated: (arSessionManager, arObjectManager, arAnchorManager, arLocationManager) {
-    _arSessionManager = arSessionManager;
-    _arSessionManager!.onInitialize(
-      showFeaturePoints: true,
-      showPlanes: true,
-      customPlaneTexturePath: "assets/triangle.png",
-      showWorldOrigin: false,
-    );
-  },
-)
-
-// On tap → do hit test:
-final hitTestResults = await _arSessionManager!.onPlaneOrPointTap(event);
-if (hitTestResults.isNotEmpty) {
-  final worldPos = hitTestResults.first.worldTransform;
-  // Store worldPos as Point A or B
-  // Calculate distance using vector_math
-}
-```
-
-### Step 3 — Real Distance Calculation
-```dart
-import 'package:vector_math/vector_math_64.dart';
-
-double getRealWorldDistance(Matrix4 transformA, Matrix4 transformB) {
-  final posA = Vector3(transformA[12], transformA[13], transformA[14]);
-  final posB = Vector3(transformB[12], transformB[13], transformB[14]);
-  return (posA - posB).length * 100; // convert meters → cm
-}
-```
+- Production-ready Flutter codebase
+- Smooth animations and transitions
+- Modular architecture
+- Reusable widgets
+- Optimized UI rendering
+- Professional folder structure
 
 ---
 
-## 🎯 Features
+# Credits
 
-### ✅ Implemented (Prototype)
-- [x] 3 measurement modes: AR, Reference Object, Height Sensor
-- [x] Animated splash screen with scan grid
-- [x] Dark industrial UI with cyan accent
-- [x] AR-style scan overlay with corner brackets + surface detection
-- [x] Tap Point A / Point B measurement flow
-- [x] Animated crosshair widgets
-- [x] Result bottom sheet with unit conversions (mm, cm, in, ft, m)
-- [x] Clipboard copy
-- [x] Save measurements with custom labels
-- [x] History screen with swipe-to-delete
-- [x] Unit toggle (cm ↔ inches) in HUD
-- [x] Camera permission handling
-- [x] Android & iOS manifests with correct permissions
-- [x] Simulated AR plane detection flow
+### Designed & Developed by Sandlus Info Solutions
 
-### 🔲 Next Steps for Production
-- [ ] Real camera feed via `camera` package
-- [ ] Real AR hit testing via `ar_flutter_plugin`
-- [ ] Accelerometer-based height calculation (for Height Sensor mode)
-- [ ] Reference object scale calibration (coin/card detection via ML Kit)
-- [ ] Screenshot capture of measurement
-- [ ] Export to PDF / share
-- [ ] Multi-point measurement (perimeter, area)
-- [ ] Flashlight toggle
+This application and its architecture were professionally crafted by **Sandlus Info Solutions** for scalable and modern mobile application development.
 
 ---
 
-## 📦 Dependencies
+# License
 
-| Package | Purpose |
-|---------|---------|
-| `camera` | Live camera feed |
-| `ar_flutter_plugin_flutterflow` | AR Core/Kit integration |
-| `permission_handler` | Runtime permissions |
-| `google_fonts` | Space Grotesk + Orbitron fonts |
-| `flutter_animate` | Smooth UI animations |
-| `shared_preferences` | Local measurement storage |
-| `vector_math` | 3D distance calculation |
-
----
-
-## 📐 Accuracy Notes
-
-| Method | Expected Accuracy | Device Requirement |
-|--------|------------------|--------------------|
-| ARCore (Android) | ±5–15mm | ARCore-compatible device |
-| ARKit (iPhone) | ±3–8mm | iPhone 6s+ |
-| LiDAR (iPhone Pro) | ±1–3mm | iPhone 12 Pro+ |
-| Reference Object | ±5–20mm (depends on calibration) | Any camera |
-| Height Sensor | ±2–5cm | Accelerometer required |
-
----
-
-## 🎨 Design
-
-- **Theme**: Dark industrial / precision instrument
-- **Primary font**: Space Grotesk (UI), Orbitron (numbers/readouts)
-- **Accent color**: `#00E5FF` cyan
-- **Background**: `#0A0C0F` near-black
-
----
-
-*Built as a client prototype — ready to integrate real AR in production.*
+Private / Proprietary Project  
+Copyright © Sandlus Info Solutions
